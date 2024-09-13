@@ -128,3 +128,377 @@ ON cliente.idCliente = telefone.id_cliente;
 | Fabiana  | F    | Casa Verde      | São Paulo | CEL  | 911916423 |
 | Fabiana  | F    | Casa Verde      | São Paulo | RES  | 311916424 |
 +----------+------+-----------------+-----------+------+-----------+
+
+-- DML - DATA MANIPULATION LANGUAGE
+
+INSERT INTO cliente VALUES (NULL, 'Paula', 'M', NULL, 065299645);
+INSERT INTO endereco VALUES (NULL, 'Rua do C', 'Zoológico', 'São Paulo', 'SP', 7);
+
+-- FILTROS
+SELECT * FROM cliente
+WHERE sexo = "M";
+
+-- UPDATE
+SELECT * FROM cliente
+WHERE idCliente = 7;
+
+UPDATE cliente
+SET sexo = 'F'
+WHERE idCliente = 7;
+
+UPDATE cliente
+SET cpf = '06529964928'
+WHERE idCLiente = 7;
+
+-- DELETE
+
+INSERT INTO cliente VALUES (NULL, 'XXX', 'M', NULL, 06529964545);
+
+SELECT * FROM cliente
+WHERE idCliente = 8;
+
+DELETE FROM cliente WHERE idCliente = 8;
+
+-- DDL - DATA DEFINITION LANGUAGE
+
+CREATE TABLE produto (
+    idProduto INT PRIMARY KEY AUTO_INCREMENT,
+    nome_produto VARCHAR(30) NOT NULL,
+    preco INT,
+    frete FLOAT(10,2) NOT NULL
+);
+
+-- ALTER TABLE
+-- ALTERANDO O NOME DE UMA COLUNA _ CHANGE
+ALTER TABLE produto
+CHANGE preco valor_unitario INT NOT NULL;
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| idProduto      | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nome_produto   | varchar(30) | NO   |     | NULL    |                |
+| valor_unitario | int(11)     | NO   |     | NULL    |                |
+| frete          | float(10,2) | NO   |     | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+
+-- MODIFY O TIPO
+ALTER TABLE produto
+MODIFY valor_unitario VARCHAR(50) NOT NULL;
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| idProduto      | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nome_produto   | varchar(30) | NO   |     | NULL    |                |
+| valor_unitario | varchar(50) | NO   |     | NULL    |                |
+| frete          | float(10,2) | NO   |     | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+
+-- ADICIONANDO COLUNAS
+ALTER TABLE produto
+ADD peso FLOAT(10,2) NOT NULL;
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| idProduto      | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nome_produto   | varchar(30) | NO   |     | NULL    |                |
+| valor_unitario | varchar(50) | NO   |     | NULL    |                |
+| frete          | float(10,2) | NO   |     | NULL    |                |
+| peso           | float(10,2) | NO   |     | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+
+-- APAGANDO UMA COLUNA
+ALTER TABLE produto
+DROP COLUMN peso;
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| idProduto      | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nome_produto   | varchar(30) | NO   |     | NULL    |                |
+| valor_unitario | varchar(50) | NO   |     | NULL    |                |
+| frete          | float(10,2) | NO   |     | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+
+-- ADICIONANDO UMA COLUNA NUMA ORDEM ESPECIFICA
+ALTER TABLE produto
+ADD COLUMN peso FLOAT(10,2) NOT NULL
+AFTER nome_produto;
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| idProduto      | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nome_produto   | varchar(30) | NO   |     | NULL    |                |
+| peso           | float(10,2) | NO   |     | NULL    |                |
+| valor_unitario | varchar(50) | NO   |     | NULL    |                |
+| frete          | float(10,2) | NO   |     | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+
+-- ADICIONANDO UMA COLUNA NA PRIMEIRA LINHA
+ALTER TABLE produto
+ADD COLUMN primeiro INT NOT NULL
+FIRST;
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| primeiro       | int(11)     | NO   |     | NULL    |                |
+| idProduto      | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nome_produto   | varchar(30) | NO   |     | NULL    |                |
+| peso           | float(10,2) | NO   |     | NULL    |                |
+| valor_unitario | varchar(50) | NO   |     | NULL    |                |
+| frete          | float(10,2) | NO   |     | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+
+-- EXERCÍCIOS DML
+
+INSERT INTO cliente VALUES(NULL,'Flavio','M','flavio@ig.com','4657765');
+INSERT INTO cliente VALUES(NULL,'Andre','M','andre@globo.com','7687567');
+INSERT INTO cliente VALUES(NULL,'Giovanna','F',NULL,'0876655');
+INSERT INTO cliente VALUES(NULL,'Karla','M','karla@gmail.com','545676778');
+INSERT INTO cliente VALUES(NULL,'Daniele','M','daniele@gmail.com','43536789');
+INSERT INTO cliente VALUES(NULL,'Lorena','M',NULL,'774557887');
+INSERT INTO cliente VALUES(NULL,'Eduardo','M',NULL,'54376457');
+INSERT INTO cliente VALUES(NULL,'Antonio','F','antonio@ig.com','12436767');
+INSERT INTO cliente VALUES(NULL,'Antonio','M','antonio@uol.com','3423565');
+INSERT INTO cliente VALUES(NULL,'Elaine','M','elaine@globo.com','32567763');
+INSERT INTO cliente VALUES(NULL,'Carmem','M','carmem@ig.com','787832213');
+INSERT INTO cliente VALUES(NULL,'Adriana','F','adriana@gmail.com','88556942');
+INSERT INTO cliente VALUES(NULL,'Joica','F','joice@gmail.com','55412256');
+
+INSERT INTO endereco VALUES(NULL,'Rua Guedes','Cascadura','Belo Horizonte','MG',9);
+INSERT INTO endereco VALUES(NULL,'Rua Maia Lacerda','Estacio','Rio de Jaineiro','RJ',10);
+INSERT INTO endereco VALUES(NULL,'Rua Viscondessa','Centro','Rio de Jaineiro','RJ',11);
+INSERT INTO endereco VALUES(NULL,'Rua Nelson Mandela','Copacabana','Rio de Jaineiro','RJ',12);
+INSERT INTO endereco VALUES(NULL,'Rua Araujo Lima','Centro','Vitoria','ES',13);
+INSERT INTO endereco VALUES(NULL,'Rua Castro Alves','Leblon','Rio de Jaineiro','RJ',14);
+INSERT INTO endereco VALUES(NULL,'Av Capitao Antunes','Centro','Curitiba','PR',15);
+INSERT INTO endereco VALUES(NULL,'Av Carlos Barroso','Jardins','Sao Paulo','SP',16);
+INSERT INTO endereco VALUES(NULL,'Alameda Sampaio','Bom Retiro','Curitiba','PR',17);
+INSERT INTO endereco VALUES(NULL,'Rua da Lapa','Lapa','Sao Paulo','SP',18);
+INSERT INTO endereco VALUES(NULL,'Rua Geronimo','Centro','Rio de Jaineiro','RJ',19);
+INSERT INTO endereco VALUES(NULL,'Rua Gomes Freire','Centro','Rio de Jaineiro','RJ',20);
+INSERT INTO endereco VALUES(NULL,'Rua Gomes Freire','Centro','Rio de Jaineiro','RJ',21);
+
+INSERT INTO telefone VALUES(NULL,'RES','68976565',9);
+INSERT INTO telefone VALUES(NULL,'CEL','99656675',9);
+INSERT INTO telefone VALUES(NULL,'CEL','33567765',11);
+INSERT INTO telefone VALUES(NULL,'CEL','88668786',11);
+INSERT INTO telefone VALUES(NULL,'COM','55689654',11);
+INSERT INTO telefone VALUES(NULL,'COM','88687979',12);
+INSERT INTO telefone VALUES(NULL,'COM','88965676',13);
+INSERT INTO telefone VALUES(NULL,'CEL','89966809',15);
+INSERT INTO telefone VALUES(NULL,'COM','88679978',16);
+INSERT INTO telefone VALUES(NULL,'CEL','99655768',17);
+INSERT INTO telefone VALUES(NULL,'RES','89955665',18);
+INSERT INTO telefone VALUES(NULL,'RES','77455786',19);
+INSERT INTO telefone VALUES(NULL,'RES','89766554',19);
+INSERT INTO telefone VALUES(NULL,'RES','77755785',20);
+INSERT INTO telefone VALUES(NULL,'COM','44522578',20);
+
+-- Relatório Geral de todos os clientes
+DESC cliente;
+DESC endereco;
+DESC telefone;
+
+SELECT  C.idCliente, C.nome, C.sexo, C.email, C.cpf, 
+        E.rua, E.bairro, E.cidade, E.estado, 
+        T.tipo, T.numero
+FROM cliente C
+INNER JOIN endereco E
+ON C.idCliente = E.id_cliente
+INNER JOIN telefone T
+ON C.idCliente = T.id_cliente;
++-----------+----------+------+----------------------------+-------------+--------------------+-----------------+-----------------+--------+------+-----------+
+| idCliente | nome     | sexo | email                      | cpf         | rua                | bairro          | cidade          | estado | tipo | numero    |
++-----------+----------+------+----------------------------+-------------+--------------------+-----------------+-----------------+--------+------+-----------+
+|         1 | Anderson | M    | anderson.moreton@gmail.com | 06529564918 | Rua A              | Centro          | São Paulo       | SP     | CEL  | 911916416 |
+|         1 | Anderson | M    | anderson.moreton@gmail.com | 06529564918 | Rua A              | Centro          | São Paulo       | SP     | COM  | 211916416 |
+|         2 | Priscila | F    | pri.moreton@gmail.com      | 06529564919 | Rua B              | Lapa            | São Paulo       | SP     | CEL  | 911916417 |
+|         2 | Priscila | F    | pri.moreton@gmail.com      | 06529564919 | Rua B              | Lapa            | São Paulo       | SP     | COM  | 211916418 |
+|         2 | Priscila | F    | pri.moreton@gmail.com      | 06529564919 | Rua B              | Lapa            | São Paulo       | SP     | RES  | 311916416 |
+|         4 | Brunno   | M    | brunno.moreton@gmail.com   | 06529564921 | Rua D              | Bela Vista      | São Paulo       | SP     | CEL  | 911916420 |
+|         5 | Gabriel  | M    | gabriel.moreton@gmail.com  | 06529564922 | Rua E              | CIdade Domitila | São Paulo       | SP     | CEL  | 911916422 |
+|         6 | Fabiana  | F    | fabi.moreton@gmail.com     | 06529564923 | Rua F              | Casa Verde      | São Paulo       | SP     | CEL  | 911916423 |
+|         6 | Fabiana  | F    | fabi.moreton@gmail.com     | 06529564923 | Rua F              | Casa Verde      | São Paulo       | SP     | RES  | 311916424 |
+|         9 | Flavio   | M    | flavio@ig.com              | 4657765     | Rua Guedes         | Cascadura       | Belo Horizonte  | MG     | RES  | 68976565  |
+|         9 | Flavio   | M    | flavio@ig.com              | 4657765     | Rua Guedes         | Cascadura       | Belo Horizonte  | MG     | CEL  | 99656675  |
+|        11 | Giovanna | F    | NULL                       | 0876655     | Rua Viscondessa    | Centro          | Rio de Jaineiro | RJ     | CEL  | 33567765  |
+|        11 | Giovanna | F    | NULL                       | 0876655     | Rua Viscondessa    | Centro          | Rio de Jaineiro | RJ     | CEL  | 88668786  |
+|        11 | Giovanna | F    | NULL                       | 0876655     | Rua Viscondessa    | Centro          | Rio de Jaineiro | RJ     | COM  | 55689654  |
+|        12 | Karla    | M    | karla@gmail.com            | 545676778   | Rua Nelson Mandela | Copacabana      | Rio de Jaineiro | RJ     | COM  | 88687979  |
+|        13 | Daniele  | M    | daniele@gmail.com          | 43536789    | Rua Araujo Lima    | Centro          | Vitoria         | ES     | COM  | 88965676  |
+|        15 | Eduardo  | M    | NULL                       | 54376457    | Av Capitao Antunes | Centro          | Curitiba        | PR     | CEL  | 89966809  |
+|        16 | Antonio  | F    | antonio@ig.com             | 12436767    | Av Carlos Barroso  | Jardins         | Sao Paulo       | SP     | COM  | 88679978  |
+|        17 | Antonio  | M    | antonio@uol.com            | 3423565     | Alameda Sampaio    | Bom Retiro      | Curitiba        | PR     | CEL  | 99655768  |
+|        18 | Elaine   | M    | elaine@globo.com           | 32567763    | Rua da Lapa        | Lapa            | Sao Paulo       | SP     | RES  | 89955665  |
+|        19 | Carmem   | M    | carmem@ig.com              | 787832213   | Rua Geronimo       | Centro          | Rio de Jaineiro | RJ     | RES  | 77455786  |
+|        19 | Carmem   | M    | carmem@ig.com              | 787832213   | Rua Geronimo       | Centro          | Rio de Jaineiro | RJ     | RES  | 89766554  |
+|        20 | Adriana  | F    | adriana@gmail.com          | 88556942    | Rua Gomes Freire   | Centro          | Rio de Jaineiro | RJ     | RES  | 77755785  |
+|        20 | Adriana  | F    | adriana@gmail.com          | 88556942    | Rua Gomes Freire   | Centro          | Rio de Jaineiro | RJ     | COM  | 44522578  |
++-----------+----------+------+----------------------------+-------------+--------------------+-----------------+-----------------+--------+------+-----------+
+
+
+-- Relatório de clientes homens
+SELECT  C.idCliente, C.nome, C.sexo, C.email, C.cpf, 
+        E.rua, E.bairro, E.cidade, E.estado, 
+        T.tipo, T.numero
+FROM cliente C
+INNER JOIN endereco E
+ON C.idCliente = E.id_cliente
+INNER JOIN telefone T
+ON C.idCliente = T.id_cliente
+WHERE sexo = 'M';
++-----------+----------+------+----------------------------+-------------+--------------------+-----------------+-----------------+--------+------+-----------+
+| idCliente | nome     | sexo | email                      | cpf         | rua                | bairro          | cidade          | estado | tipo | numero    |
++-----------+----------+------+----------------------------+-------------+--------------------+-----------------+-----------------+--------+------+-----------+
+|         1 | Anderson | M    | anderson.moreton@gmail.com | 06529564918 | Rua A              | Centro          | São Paulo       | SP     | CEL  | 911916416 |
+|         1 | Anderson | M    | anderson.moreton@gmail.com | 06529564918 | Rua A              | Centro          | São Paulo       | SP     | COM  | 211916416 |
+|         4 | Brunno   | M    | brunno.moreton@gmail.com   | 06529564921 | Rua D              | Bela Vista      | São Paulo       | SP     | CEL  | 911916420 |
+|         5 | Gabriel  | M    | gabriel.moreton@gmail.com  | 06529564922 | Rua E              | CIdade Domitila | São Paulo       | SP     | CEL  | 911916422 |
+|         9 | Flavio   | M    | flavio@ig.com              | 4657765     | Rua Guedes         | Cascadura       | Belo Horizonte  | MG     | RES  | 68976565  |
+|         9 | Flavio   | M    | flavio@ig.com              | 4657765     | Rua Guedes         | Cascadura       | Belo Horizonte  | MG     | CEL  | 99656675  |
+|        12 | Karla    | M    | karla@gmail.com            | 545676778   | Rua Nelson Mandela | Copacabana      | Rio de Jaineiro | RJ     | COM  | 88687979  |
+|        13 | Daniele  | M    | daniele@gmail.com          | 43536789    | Rua Araujo Lima    | Centro          | Vitoria         | ES     | COM  | 88965676  |
+|        15 | Eduardo  | M    | NULL                       | 54376457    | Av Capitao Antunes | Centro          | Curitiba        | PR     | CEL  | 89966809  |
+|        17 | Antonio  | M    | antonio@uol.com            | 3423565     | Alameda Sampaio    | Bom Retiro      | Curitiba        | PR     | CEL  | 99655768  |
+|        18 | Elaine   | M    | elaine@globo.com           | 32567763    | Rua da Lapa        | Lapa            | Sao Paulo       | SP     | RES  | 89955665  |
+|        19 | Carmem   | M    | carmem@ig.com              | 787832213   | Rua Geronimo       | Centro          | Rio de Jaineiro | RJ     | RES  | 77455786  |
+|        19 | Carmem   | M    | carmem@ig.com              | 787832213   | Rua Geronimo       | Centro          | Rio de Jaineiro | RJ     | RES  | 89766554  |
++-----------+----------+------+----------------------------+-------------+--------------------+-----------------+-----------------+--------+------+-----------+
+
+-- Tem erros de dados, mulheres inseridas como masculino. Precisa editar os IDs 12, 13, 18 e 19
+-- Para evitar de dar o UPDATE no id errado, fazer a seleção e conferência antes de editar.
+SELECT * FROM cliente
+WHERE idCliente IN (12,12,18,19);
++-----------+--------+------+------------------+-----------+
+| idCliente | nome   | sexo | email            | cpf       |
++-----------+--------+------+------------------+-----------+
+|        12 | Karla  | M    | karla@gmail.com  | 545676778 |
+|        18 | Elaine | M    | elaine@globo.com | 32567763  |
+|        19 | Carmem | M    | carmem@ig.com    | 787832213 |
++-----------+--------+------+------------------+-----------+
+
+UPDATE cliente
+SET sexo = 'F'
+WHERE idCliente IN (12, 13, 18, 19);
++-----------+--------+------+------------------+-----------+
+| idCliente | nome   | sexo | email            | cpf       |
++-----------+--------+------+------------------+-----------+
+|        12 | Karla  | F    | karla@gmail.com  | 545676778 |
+|        18 | Elaine | F    | elaine@globo.com | 32567763  |
+|        19 | Carmem | F    | carmem@ig.com    | 787832213 |
++-----------+--------+------+------------------+-----------+
+
+
+-- Relatório de clientes mulheres
+SELECT  C.idCliente, C.nome, C.sexo, C.email, C.cpf, 
+        E.rua, E.bairro, E.cidade, E.estado, 
+        T.tipo, T.numero
+FROM cliente C
+INNER JOIN endereco E
+ON C.idCliente = E.id_cliente
+INNER JOIN telefone T
+ON C.idCliente = T.id_cliente
+WHERE sexo = 'F';
++-----------+----------+------+------------------------+-------------+--------------------+------------+-----------------+--------+------+-----------+
+| idCliente | nome     | sexo | email                  | cpf         | rua                | bairro     | cidade          | estado | tipo | numero    |
++-----------+----------+------+------------------------+-------------+--------------------+------------+-----------------+--------+------+-----------+
+|         2 | Priscila | F    | pri.moreton@gmail.com  | 06529564919 | Rua B              | Lapa       | São Paulo       | SP     | CEL  | 911916417 |
+|         2 | Priscila | F    | pri.moreton@gmail.com  | 06529564919 | Rua B              | Lapa       | São Paulo       | SP     | COM  | 211916418 |
+|         2 | Priscila | F    | pri.moreton@gmail.com  | 06529564919 | Rua B              | Lapa       | São Paulo       | SP     | RES  | 311916416 |
+|         6 | Fabiana  | F    | fabi.moreton@gmail.com | 06529564923 | Rua F              | Casa Verde | São Paulo       | SP     | CEL  | 911916423 |
+|         6 | Fabiana  | F    | fabi.moreton@gmail.com | 06529564923 | Rua F              | Casa Verde | São Paulo       | SP     | RES  | 311916424 |
+|        11 | Giovanna | F    | NULL                   | 0876655     | Rua Viscondessa    | Centro     | Rio de Jaineiro | RJ     | CEL  | 33567765  |
+|        11 | Giovanna | F    | NULL                   | 0876655     | Rua Viscondessa    | Centro     | Rio de Jaineiro | RJ     | CEL  | 88668786  |
+|        11 | Giovanna | F    | NULL                   | 0876655     | Rua Viscondessa    | Centro     | Rio de Jaineiro | RJ     | COM  | 55689654  |
+|        12 | Karla    | F    | karla@gmail.com        | 545676778   | Rua Nelson Mandela | Copacabana | Rio de Jaineiro | RJ     | COM  | 88687979  |
+|        13 | Daniele  | F    | daniele@gmail.com      | 43536789    | Rua Araujo Lima    | Centro     | Vitoria         | ES     | COM  | 88965676  |
+|        16 | Antonio  | F    | antonio@ig.com         | 12436767    | Av Carlos Barroso  | Jardins    | Sao Paulo       | SP     | COM  | 88679978  |
+|        18 | Elaine   | F    | elaine@globo.com       | 32567763    | Rua da Lapa        | Lapa       | Sao Paulo       | SP     | RES  | 89955665  |
+|        19 | Carmem   | F    | carmem@ig.com          | 787832213   | Rua Geronimo       | Centro     | Rio de Jaineiro | RJ     | RES  | 77455786  |
+|        19 | Carmem   | F    | carmem@ig.com          | 787832213   | Rua Geronimo       | Centro     | Rio de Jaineiro | RJ     | RES  | 89766554  |
+|        20 | Adriana  | F    | adriana@gmail.com      | 88556942    | Rua Gomes Freire   | Centro     | Rio de Jaineiro | RJ     | RES  | 77755785  |
+|        20 | Adriana  | F    | adriana@gmail.com      | 88556942    | Rua Gomes Freire   | Centro     | Rio de Jaineiro | RJ     | COM  | 44522578  |
++-----------+----------+------+------------------------+-------------+--------------------+------------+-----------------+--------+------+-----------+
+-- Tem erros de dados, homem inserido como feminino. Precisa editar o ID 16.
+-- Para evitar de dar o UPDATE no id errado, fazer a seleção e conferência antes de editar.
+SELECT * FROM cliente
+WHERE idCliente = 16;
++-----------+---------+------+----------------+----------+
+| idCliente | nome    | sexo | email          | cpf      |
++-----------+---------+------+----------------+----------+
+|        16 | Antonio | F    | antonio@ig.com | 12436767 |
++-----------+---------+------+----------------+----------+
+
+UPDATE cliente
+SET sexo = 'M'
+WHERE idCliente = 16;
+
+-- Quantidade de homens e mulheres
+SELECT sexo, COUNT(sexo) AS total
+FROM cliente
+GROUP BY sexo;
++------+-------+
+| sexo | total |
++------+-------+
+| M    |    10 |
+| F    |    10 |
++------+-------+
+
+-- IDs e email da mulheres que morem no centro do Rio de Janeiro e não tenham celular;
+SELECT C.idCliente, C.email, C.nome, C.sexo, T.tipo, E.bairro, E.cidade
+FROM cliente C
+INNER JOIN endereco E
+ON C.idCliente = E.id_cliente
+INNER JOIN telefone T
+ON C.idCliente = T.id_cliente
+WHERE sexo = 'F'
+AND bairro = 'Centro' AND cidade = 'Rio de Janeiro'
+AND (tipo = 'RES' OR tipo = 'COM');
++-----------+-------------------+----------+------+------+--------+----------------+
+| idCliente | email             | nome     | sexo | tipo | bairro | cidade         |
++-----------+-------------------+----------+------+------+--------+----------------+
+|        11 | NULL              | Giovanna | F    | COM  | Centro | Rio de Janeiro |
+|        19 | carmem@ig.com     | Carmem   | F    | RES  | Centro | Rio de Janeiro |
+|        19 | carmem@ig.com     | Carmem   | F    | RES  | Centro | Rio de Janeiro |
+|        20 | adriana@gmail.com | Adriana  | F    | RES  | Centro | Rio de Janeiro |
+|        20 | adriana@gmail.com | Adriana  | F    | COM  | Centro | Rio de Janeiro |
++-----------+-------------------+----------+------+------+--------+----------------+
+
+
+-- Para uma campanha de marketing, o setor solicitou um Relatório com o nome, email, e telefone celular 
+-- dos clientes que moram no estado do Rio de Janeiro.
+-- Você terá que passar a query para gerar um relatório para o programador.
+SELECT C.nome, C.email, T.tipo, T.numero, E.estado
+FROM cliente C
+INNER JOIN endereco E
+ON C.idCliente = E.id_cliente
+INNER JOIN telefone T
+ON C.idCliente = T.id_cliente
+WHERE tipo = 'CEL'
+AND estado = 'RJ';
++----------+-------+------+----------+--------+
+| nome     | email | tipo | numero   | estado |
++----------+-------+------+----------+--------+
+| Giovanna | NULL  | CEL  | 88668786 | RJ     |
++----------+-------+------+----------+--------+
+
+-- Para uma campanha de produtos de beleza, o comercial solicitou um relatório com nome, email, e telefone celular 
+-- das mulheres que moram no estado de São Paulo.
+-- Você terá que passar a query para gerar o relatório para o programador.
+SELECT C.nome, C.email, T.tipo, T.numero, E.estado
+FROM cliente C
+INNER JOIN endereco E
+ON C.idCliente = E.id_cliente
+INNER JOIN telefone T
+ON C.idCliente = T.id_cliente
+WHERE tipo = 'CEL'
+AND sexo = 'F'
+AND estado = 'SP';
++----------+------------------------+------+-----------+--------+
+| nome     | email                  | tipo | numero    | estado |
++----------+------------------------+------+-----------+--------+
+| Priscila | pri.moreton@gmail.com  | CEL  | 911916417 | SP     |
+| Fabiana  | fabi.moreton@gmail.com | CEL  | 911916423 | SP     |
++----------+------------------------+------+-----------+--------+
+
+-- DCL - DATA CONTROL LANGUAGE
+-- TCL - TRANSACTION CONTROL LANGUAGE
