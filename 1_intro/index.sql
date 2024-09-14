@@ -500,5 +500,240 @@ AND estado = 'SP';
 | Fabiana  | fabi.moreton@gmail.com | CEL  | 911916423 | SP     |
 +----------+------------------------+------+-----------+--------+
 
+-- Função IFNULL()
+SELECT  C.nome, 
+        IFNULL(C.email, '*************'), 
+        T.tipo, 
+        T.numero, 
+        E.estado
+FROM cliente C
+INNER JOIN endereco E
+ON C.idCliente = E.id_cliente
+INNER JOIN telefone T
+ON C.idCliente = T.id_cliente;
++----------+----------------------------------+------+-----------+--------+
+| nome     | IFNULL(C.email, '*************') | tipo | numero    | estado |
++----------+----------------------------------+------+-----------+--------+
+| Anderson | anderson.moreton@gmail.com       | CEL  | 911916416 | SP     |
+| Anderson | anderson.moreton@gmail.com       | COM  | 211916416 | SP     |
+| Priscila | pri.moreton@gmail.com            | CEL  | 911916417 | SP     |
+| Priscila | pri.moreton@gmail.com            | COM  | 211916418 | SP     |
+| Priscila | pri.moreton@gmail.com            | RES  | 311916416 | SP     |
+| Brunno   | brunno.moreton@gmail.com         | CEL  | 911916420 | SP     |
+| Gabriel  | gabriel.moreton@gmail.com        | CEL  | 911916422 | SP     |
+| Fabiana  | fabi.moreton@gmail.com           | CEL  | 911916423 | SP     |
+| Fabiana  | fabi.moreton@gmail.com           | RES  | 311916424 | SP     |
+| Flavio   | flavio@ig.com                    | RES  | 68976565  | MG     |
+| Flavio   | flavio@ig.com                    | CEL  | 99656675  | MG     |
+| Giovanna | *************                    | RES  | 33567765  | RJ     |
+| Giovanna | *************                    | CEL  | 88668786  | RJ     |
+| Giovanna | *************                    | COM  | 55689654  | RJ     |
+| Karla    | karla@gmail.com                  | COM  | 88687979  | RJ     |
+| Daniele  | daniele@gmail.com                | COM  | 88965676  | ES     |
+| Eduardo  | *************                    | CEL  | 89966809  | PR     |
+| Antonio  | antonio@ig.com                   | COM  | 88679978  | SP     |
+| Antonio  | antonio@uol.com                  | CEL  | 99655768  | PR     |
+| Elaine   | elaine@globo.com                 | RES  | 89955665  | SP     |
+| Carmem   | carmem@ig.com                    | RES  | 77455786  | RJ     |
+| Carmem   | carmem@ig.com                    | RES  | 89766554  | RJ     |
+| Adriana  | adriana@gmail.com                | RES  | 77755785  | RJ     |
+| Adriana  | adriana@gmail.com                | COM  | 44522578  | RJ     |
++----------+----------------------------------+------+-----------+--------+
+
+-- VIEW
+CREATE VIEW relatorio AS
+SELECT  C.idCliente, 
+        C.nome, 
+        C.email, 
+        T.tipo, 
+        T.numero, 
+        E.bairro, 
+        E.cidade, 
+        E.estado
+FROM cliente C
+INNER JOIN endereco E
+ON C.idCliente = E.id_cliente
+INNER JOIN telefone T
+ON C.idCLiente = T.id_cliente;
++-----------+----------+----------------------------+------+-----------+-----------------+----------------+--------+
+| idCliente | nome     | email                      | tipo | numero    | bairro          | cidade         | estado |
++-----------+----------+----------------------------+------+-----------+-----------------+----------------+--------+
+|         1 | Anderson | anderson.moreton@gmail.com | CEL  | 911916416 | Centro          | São Paulo      | SP     |
+|         1 | Anderson | anderson.moreton@gmail.com | COM  | 211916416 | Centro          | São Paulo      | SP     |
+|         2 | Priscila | pri.moreton@gmail.com      | CEL  | 911916417 | Lapa            | São Paulo      | SP     |
+|         2 | Priscila | pri.moreton@gmail.com      | COM  | 211916418 | Lapa            | São Paulo      | SP     |
+|         2 | Priscila | pri.moreton@gmail.com      | RES  | 311916416 | Lapa            | São Paulo      | SP     |
+|         4 | Brunno   | brunno.moreton@gmail.com   | CEL  | 911916420 | Bela Vista      | São Paulo      | SP     |
+|         5 | Gabriel  | gabriel.moreton@gmail.com  | CEL  | 911916422 | CIdade Domitila | São Paulo      | SP     |
+|         6 | Fabiana  | fabi.moreton@gmail.com     | CEL  | 911916423 | Casa Verde      | São Paulo      | SP     |
+|         6 | Fabiana  | fabi.moreton@gmail.com     | RES  | 311916424 | Casa Verde      | São Paulo      | SP     |
+|         9 | Flavio   | flavio@ig.com              | RES  | 68976565  | Cascadura       | Belo Horizonte | MG     |
+|         9 | Flavio   | flavio@ig.com              | CEL  | 99656675  | Cascadura       | Belo Horizonte | MG     |
+|        11 | Giovanna | NULL                       | RES  | 33567765  | Centro          | Rio de Janeiro | RJ     |
+|        11 | Giovanna | NULL                       | CEL  | 88668786  | Centro          | Rio de Janeiro | RJ     |
+|        11 | Giovanna | NULL                       | COM  | 55689654  | Centro          | Rio de Janeiro | RJ     |
+|        12 | Karla    | karla@gmail.com            | COM  | 88687979  | Copacabana      | Rio de Janeiro | RJ     |
+|        13 | Daniele  | daniele@gmail.com          | COM  | 88965676  | Centro          | Vitoria        | ES     |
+|        15 | Eduardo  | NULL                       | CEL  | 89966809  | Centro          | Curitiba       | PR     |
+|        16 | Antonio  | antonio@ig.com             | COM  | 88679978  | Jardins         | Sao Paulo      | SP     |
+|        17 | Antonio  | antonio@uol.com            | CEL  | 99655768  | Bom Retiro      | Curitiba       | PR     |
+|        18 | Elaine   | elaine@globo.com           | RES  | 89955665  | Lapa            | Sao Paulo      | SP     |
+|        19 | Carmem   | carmem@ig.com              | RES  | 77455786  | Centro          | Rio de Janeiro | RJ     |
+|        19 | Carmem   | carmem@ig.com              | RES  | 89766554  | Centro          | Rio de Janeiro | RJ     |
+|        20 | Adriana  | adriana@gmail.com          | RES  | 77755785  | Centro          | Rio de Janeiro | RJ     |
+|        20 | Adriana  | adriana@gmail.com          | COM  | 44522578  | Centro          | Rio de Janeiro | RJ     |
++-----------+----------+----------------------------+------+-----------+-----------------+----------------+--------+
+
+-- Saber views criadas
+SHOW TABLES;
+
+-- Apagando uma View
+DROP VIEW relatorio;
+
+/* UPDATE, INSERT E DELETE - DML */
+
+INSERT INTO V_RELATORIO VALUES(
+'ANDREIA','F','ANDREIA@UOL.COM.BR','CEL','873547864','CENTRO','VITORIA','ES'
+);
+
+ERROR 1394 (HY000): Can not insert into join view 'comercio.v_relatorio' without fields list
+ERROR 1395 (HY000): Can not delete from join view 'comercio.v_relatorio'
+
+DELETE FROM V_RELATORIO WHERE NOME = 'JORGE';
+
+/* É PERMITIDO FAZER UPDATES EM VIEWS COM JOIN */
+
+UPDATE V_RELATORIO SET NOME = 'JOSE' WHERE NOME = 'JORGE';
+
+CREATE TABLE JOGADORES(
+	IDJOGADOR INT,
+	NOME VARCHAR(30),
+	ESTADO CHAR(2)
+);
+
+INSERT INTO JOGADORES VALUES(1,'GUERRERO','RS');
+INSERT INTO JOGADORES VALUES(2,'GABIGOL','RJ');
+INSERT INTO JOGADORES VALUES(3,'GANSO','RJ');
+INSERT INTO JOGADORES VALUES(4,'NENÊ', 'RJ');
+INSERT INTO JOGADORES VALUES(5,'LOVE','SP');
+
+CREATE VIEW V_JOGADORES AS
+SELECT NOME, ESTADO
+FROM JOGADORES;
+
+SELECT * FROM V_JOGADORES;
+
+DELETE FROM V_JOGADORES
+WHERE NOME = 'GUERRERO';
+
+INSERT INTO V_JOGADORES VALUES('GUERRERO','RS');
+
+SELECT * FROM JOGADORES;
+
+mysql> SELECT * FROM JOGADORES;
++-----------+----------+--------+
+| IDJOGADOR | NOME     | ESTADO |
++-----------+----------+--------+
+|         2 | GABIGOL  | RJ     |
+|         3 | GANSO    | RJ     |
+|         4 | NENÊ     | RJ     |
+|         5 | LOVE     | SP     |
+|      NULL | GUERRERO | RS     |
++-----------+----------+--------+
+
+SELECT * FROM V_RELATORIO
+WHERE SEXO = 'F';
+
+/* ORDER BY */
+
+CREATE TABLE ALUNOS(
+	NUMERO INT,
+	NOME VARCHAR(30)
+);
+
+INSERT INTO ALUNOS VALUES(1,'JOAO');
+INSERT INTO ALUNOS VALUES(1,'MARIA');
+INSERT INTO ALUNOS VALUES(2,'ZOE');
+INSERT INTO ALUNOS VALUES(2,'ANDRE');
+INSERT INTO ALUNOS VALUES(3,'CLARA');
+INSERT INTO ALUNOS VALUES(1,'CLARA');
+INSERT INTO ALUNOS VALUES(4,'MAFRA');
+INSERT INTO ALUNOS VALUES(5,'JANAINA');
+INSERT INTO ALUNOS VALUES(1,'JANAINA');
+INSERT INTO ALUNOS VALUES(3,'MARCELO');
+INSERT INTO ALUNOS VALUES(4,'GIOVANI');
+INSERT INTO ALUNOS VALUES(5,'ANTONIO');
+INSERT INTO ALUNOS VALUES(6,'ANA');
+INSERT INTO ALUNOS VALUES(6,'VIVIANE'); 
+
+SELECT * FROM ALUNOS
+ORDER BY NUMERO;
+
+SELECT * FROM ALUNOS
+ORDER BY 1;
+
+SELECT * FROM ALUNOS
+ORDER BY 2;
+
+/* ORDENANDO POR MAIS DE UMA COLUNA */
+
+SELECT * FROM ALUNOS
+ORDER BY 1;
+
+SELECT * FROM ALUNOS
+ORDER BY NUMERO, NOME;
+
+SELECT * FROM ALUNOS
+ORDER BY 1, 2;
+
+/* MESCLANDO ORDER BY COM PROJECAO */
+
+SELECT NOME FROM ALUNOS
+ORDER BY 1, 2;
+
+SELECT NOME FROM ALUNOS
+ORDER BY NUMERO, NOME;
+
+
+/* ORDER BY DESC / ASC */
+
+SELECT * FROM ALUNOS
+ORDER BY 1, 2;
+
+SELECT * FROM ALUNOS
+ORDER BY 1 ASC;
+
+SELECT * FROM ALUNOS
+ORDER BY 1 DESC;
+
+SELECT * FROM ALUNOS
+ORDER BY 1, 2 DESC;
+
+SELECT * FROM ALUNOS
+ORDER BY 1 DESC, 2 DESC;
+
+/* ORDENANDO COM JOINS */
+
+
+SELECT  C.NOME, 
+		C.SEXO, 
+		IFNULL(C.EMAIL,'CLIENTE SEM EMAIL') AS "E-MAIL", 
+		T.TIPO, 
+		T.NUMERO, 
+		E.BAIRRO, 
+		E.CIDADE, 
+		E.ESTADO
+FROM CLIENTE C 
+INNER JOIN TELEFONE T 
+ON C.IDCLIENTE = T.ID_CLIENTE 
+INNER JOIN ENDERECO E 
+ON C.IDCLIENTE = E.ID_CLIENTE
+ORDER BY 1;
+
+SHOW TABLES;
+
+SELECT * FROM V_RELATORIO
+ORDER BY 1;
+
 -- DCL - DATA CONTROL LANGUAGE
 -- TCL - TRANSACTION CONTROL LANGUAGE
