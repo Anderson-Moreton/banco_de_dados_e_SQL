@@ -735,5 +735,167 @@ SHOW TABLES;
 SELECT * FROM V_RELATORIO
 ORDER BY 1;
 
+/* Delimitador */
+
+SELECT  C.NOME, 
+		C.SEXO, 
+		IFNULL(C.EMAIL,'CLIENTE SEM EMAIL') AS "E-MAIL", 
+		T.TIPO, 
+		T.NUMERO, 
+		E.BAIRRO, 
+		E.CIDADE, 
+		E.ESTADO
+FROM CLIENTE C 
+INNER JOIN TELEFONE T 
+ON C.IDCLIENTE = T.ID_CLIENTE 
+INNER JOIN ENDERECO E 
+ON C.IDCLIENTE = E.ID_CLIENTE
+ORDER BY 1
+
+STATUS
+
+DELIMITER $
+
+SELECT * FROM V_RELATORIO;
+
+DELIMITER  @
+
+DELIMITER@
+
+DELIMITER @ @
+
+DELIMITER ;
+
+/* STORED PROCEDURES */
+
+SELECT 'MAFRA';
+
+DELIMITER $
+
+CREATE PROCEDURE NOME()
+BEGIN
+
+	QUALQUER PROGRAMACAO;
+
+END
+$
+
+
+DELIMITER $
+
+CREATE PROCEDURE NOME_EMPRESA()
+BEGIN
+	
+	SELECT 'UNIVERSIDADE DOS DADOS' AS EMPRESA;
+
+END
+$
+
+/* CHAMANDO UMA PROCEDURE */
+
+
+CALL NOME_EMPRESA()$
+
+DELIMITER ;
+
+CALL NOME_EMPRESA();
+
+/* PROCEDURES COM PARAMETROS */
+
+SELECT 10 + 10 AS CONTA;
+
+DELIMITER $
+
+CREATE PROCEDURE CONTA()
+BEGIN
+	
+	SELECT 10 + 10 AS CONTA;
+
+END
+$
+
+CALL CONTA();
+
+DROP PROCEDURE CONTA;
+
+DELIMITER $
+
+CREATE PROCEDURE CONTA(NUMERO1 INT, NUMERO2 INT)
+BEGIN
+	
+	SELECT NUMERO1 + NUMERO2 AS CONTA;
+
+END
+$
+
+CALL CONTA(100,50)$
+CALL CONTA(345634,4354)$
+CALL CONTA(55654,56760)$
+CALL CONTA(45646,6766)$
+
+-- RECAP
+CREATE DATABASE projeto;
+
+CREATE TABLE cursos(
+	idCurso INT PRIMARY KEY AUTO_INCREMENT,
+	nome VARCHAR(30) NOT NULL,
+	horas INT(3) NOT NULL,
+	valor FLOAT(10,2) NOT NULL
+);
+
+INSERT INTO cursos VALUES (NULL, 'Java', 30, 500.00);
+INSERT INTO cursos VALUES (NULL, 'Fundamentos de bancos de dados', 40, 700.00);
+
+DELIMETER $;
+
+CREATE PROCEDURE cad_curso(p_nome VARCHAR(30),
+							p_horas INT(3),
+							p_preco FLOAT(10,2))
+BEGIN
+	INSERT INTO cursos VALUES (null, p_nome, p_horas, p_preco);
+END
+$
+
+DELIMITER ;
+
+CALL cad_curso('BI SQL Server',35,3000.00);
+CALL cad_curso('Power BI', 20,1000.00);
+CALL cad_curso('Tableu',30,1200.00);
++---------+--------------------------------+-------+---------+
+| idCurso | nome                           | horas | valor   |
++---------+--------------------------------+-------+---------+
+|       1 | Java                           |    30 |  500.00 |
+|       2 | Fundamentos de bancos de dados |    40 |  700.00 |
+|       3 | BI SQL Server                  |    35 | 3000.00 |
+|       4 | Power BI                       |    20 | 1000.00 |
+|       5 | Tableu                         |    30 | 1200.00 |
++---------+--------------------------------+-------+---------+
+
+CALL cad_curso('Web developer FULLSTACK',200,4000.00);
+CALL cad_curso('Analista de dados MYSQL',50,2500.00);
+
+DELIMITER $
+
+CREATE PROCEDURE ver_curso()
+BEGIN
+	SELECT idCurso, nome, horas, valor FROM cursos;
+END
+$
+
+CALL ver_curso();
++---------+--------------------------------+-------+---------+
+| idCurso | nome                           | horas | valor   |
++---------+--------------------------------+-------+---------+
+|       1 | Java                           |    30 |  500.00 |
+|       2 | Fundamentos de bancos de dados |    40 |  700.00 |
+|       3 | BI SQL Server                  |    35 | 3000.00 |
+|       4 | Power BI                       |    20 | 1000.00 |
+|       5 | Tableu                         |    30 | 1200.00 |
+|       6 | Web developer FULLSTACK        |   200 | 4000.00 |
+|       7 | Analista de dados MYSQL        |    50 | 2500.00 |
++---------+--------------------------------+-------+---------+
+
+
+
 -- DCL - DATA CONTROL LANGUAGE
 -- TCL - TRANSACTION CONTROL LANGUAGE
