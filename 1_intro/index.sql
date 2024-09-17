@@ -7,7 +7,7 @@ CPF
 EMAIL
 TELEFONE
 ENDEREÇO
-SEXO
+sexo
 
 INSERT INTO cliente VALUES (NULL, 'Anderson', 'M', 'anderson.moreton@gmail.com', '06529564918');
 INSERT INTO cliente VALUES (NULL, 'Priscila', 'F', 'pri.moreton@gmail.com', '06529564919');
@@ -642,7 +642,7 @@ mysql> SELECT * FROM JOGADORES;
 +-----------+----------+--------+
 
 SELECT * FROM V_RELATORIO
-WHERE SEXO = 'F';
+WHERE sexo = 'F';
 
 /* ORDER BY */
 
@@ -716,7 +716,7 @@ ORDER BY 1 DESC, 2 DESC;
 
 
 SELECT  C.NOME, 
-		C.SEXO, 
+		C.sexo, 
 		IFNULL(C.EMAIL,'CLIENTE SEM EMAIL') AS "E-MAIL", 
 		T.TIPO, 
 		T.NUMERO, 
@@ -738,7 +738,7 @@ ORDER BY 1;
 /* Delimitador */
 
 SELECT  C.NOME, 
-		C.SEXO, 
+		C.sexo, 
 		IFNULL(C.EMAIL,'CLIENTE SEM EMAIL') AS "E-MAIL", 
 		T.TIPO, 
 		T.NUMERO, 
@@ -895,7 +895,169 @@ CALL ver_curso();
 |       7 | Analista de dados MYSQL        |    50 | 2500.00 |
 +---------+--------------------------------+-------+---------+
 
+A29 FUNCOES DE AGREGACAO NUMERICAS */
 
+CREATE TABLE vendedores(
+	idVendedor INT PRIMARY KEY AUTO_INCREMENT,
+	nome VARCHAR(30),
+	sexo CHAR(1),
+	janeiro FLOAT(10,2),
+	fevereiro FLOAT(10,2),
+	marco FLOAT(10,2)
+);
+
+INSERT INTO vendedores VALUES(NULL,'Calos','M',76234.78,88346.87,5756.90);
+INSERT INTO vendedores VALUES(NULL,'Maria','F',5865.78,6768.87,4467.90);
+INSERT INTO vendedores VALUES(NULL,'Antonio','M',78769.78,6685.87,6664.90);
+INSERT INTO vendedores VALUES(NULL,'CLara','F',5779.78,446886.87,8965.90);
+INSERT INTO vendedores VALUES(NULL,'Anderson','M',676545.78,77544.87,578665.90);
+INSERT INTO vendedores VALUES(NULL,'Ivone','F',57789.78,44774.87,68665.90);
+INSERT INTO vendedores VALUES(NULL,'Joao','M',4785.78,66478.87,6887.90);
+INSERT INTO vendedores VALUES(NULL,'Celia','F',89667.78,57654.87,5755.90);
+
+/* MAX - TRAZ O VALOR MAXIMO DE UMA COLUNA */
+
+SELECT MAX(fevereiro) AS MAIOR_FEV
+FROM vendedores;
++-----------+
+| MAIOR_FEV |
++-----------+
+| 446886.88 |
++-----------+
+
+/* MIN - TRAZ O VALOR MINIMO DE UMA COLUNA */
+
+SELECT MIN(fevereiro) AS MENOR_FEV
+FROM vendedores;
++-----------+
+| MENOR_FEV |
++-----------+
+|   6685.87 |
++-----------+
+
+/* AVG - TRAZ O VALOR MEDIO DE UMA COLUNA */
+
+SELECT AVG(fevereiro) AS MEDIA_FEV
+FROM vendedores;
++--------------+
+| MEDIA_FEV    |
++--------------+
+| 99392.744873 |
++--------------+
+
+/* VARIAS FUNCOES */
+
+SELECT MAX(janeiro) AS MAX_JAN,
+       MIN(janeiro) AS MIN_JAN,
+	   AVG(janeiro) AS MEDIA_JAN
+	   FROM vendedores;
++-----------+---------+---------------+
+| MAX_JAN   | MIN_JAN | MEDIA_JAN     |
++-----------+---------+---------------+
+| 676545.75 | 4785.78 | 124429.901794 |
++-----------+---------+---------------+
+	 
+/*TRUNCATE */
+	 
+SELECT MAX(janeiro) AS MAX_JAN,
+       MIN(janeiro) AS MIN_JAN,
+	   TRUNCATE(AVG(janeiro),2) AS MEDIA_JAN
+	   FROM vendedores;
++-----------+---------+-----------+
+| MAX_JAN   | MIN_JAN | MEDIA_JAN |
++-----------+---------+-----------+
+| 676545.75 | 4785.78 | 124429.90 |
++-----------+---------+-----------+
+
+/* A30 - AGREGANDO COM SUM() */
+
+SELECT SUM(janeiro) AS TOTAL_JAN
+FROM vendedores;
++-----------+
+| TOTAL_JAN |
++-----------+
+| 995439.21 |
++-----------+
+
+SELECT SUM(janeiro) AS TOTAL_JAN,
+	   SUM(fevereiro) AS TOTAL_FEV,
+	   SUM(marco) AS TOTAL_MAR
+FROM vendedores;
++-----------+-----------+-----------+
+| TOTAL_JAN | TOTAL_FEV | TOTAL_MAR |
++-----------+-----------+-----------+
+| 995439.21 | 795141.96 | 685831.17 |
++-----------+-----------+-----------+
+
+/* VENDAS POR sexo */
+
+SELECT sexo, SUM(marco) AS TOTAL_marco
+FROM vendedores
+GROUP BY sexo;
++------+-------------+
+| sexo | TOTAL_marco |
++------+-------------+
+| F    |    87855.60 |
+| M    |   597975.57 |
++------+-------------+
+
+/* A 31 - SUBQUERIES
+
+VENDEDOR QUE VENDEU MENOS EM MARÇO
+E O SEU NOME */
+SELECT nome, sexo, marco AS vendas_marco
+FROM vendedores
+WHERE marco = (SELECT MIN(marco) FROM vendedores);
++-------+------+-------------+
+| nome  | sexo | venda_marco |
++-------+------+-------------+
+| Maria | F    |     4467.90 |
++-------+------+-------------+
+
+/*VENDEDOR QUE VENDEU MAIS EM MARÇO
+E O SEU NOME */
+SELECT nome, sexo, marco AS vendas_marco
+FROM vendedores
+WHERE marco = (SELECT MAX(marco) FROM vendedores);
++----------+------+--------------+
+| nome     | sexo | vendas_marco |
++----------+------+--------------+
+| Anderson | M    |    578665.88 |
++----------+------+--------------+
+
+/*VENDEDOR QUE VENDEU MAIS DO QUE A MÉDIA DO MÊS DE FEVEREIRO
+E O SEU NOME */
+SELECT nome, sexo, fevereiro AS media_fevereiro
+FROM vendedores
+WHERE fevereiro > (SELECT AVG(fevereiro) FROM vendedores);
++-------+------+-----------------+
+| nome  | sexo | media_fevereiro |
++-------+------+-----------------+
+| CLara | F    |       446886.88 |
++-------+------+-----------------+
+
+/* A32 - OPERACOES EM LINHA */
+
+SELECT * FROM VENDEDORES;
+
+SELECT nome,
+	   janeiro,
+	   fevereiro,
+	   marco,
+	   (janeiro+fevereiro+marco) AS "TOTAL",
+	   TRUNCATE((janeiro+fevereiro+marco)/3,2) AS "MEDIA"
+	   FROM vendedores;
+	   
+/* APLICANDO UM % */
+
+SELECT nome,
+	   janeiro,
+	   fevereiro,
+	   marco,
+	   (janeiro+fevereiro+marco) AS "TOTAL",
+	   (janeiro+fevereiro+marco) * .25 AS "DESCONTO",
+	   TRUNCATE((janeiro+fevereiro+marco)/3,2) AS "MEDIA"
+	   FROM vendedores;
 
 -- DCL - DATA CONTROL LANGUAGE
 -- TCL - TRANSACTION CONTROL LANGUAGE
