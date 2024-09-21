@@ -1119,7 +1119,7 @@ CREATE TABLE jogador(
 CREATE TABLE times(
 	idTime INT PRIMARY KEY AUTO_INCREMENT,
 	nomeTime VARCHAR(30),
-	id_jogador INT,
+	id_jogador INT, MySQL.""
 	FOREIGN KEY(id_jogador)
 	REFERENCES jogador(idJogador)
 );
