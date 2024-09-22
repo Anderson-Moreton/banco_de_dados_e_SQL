@@ -630,7 +630,7 @@ INSERT INTO V_JOGADORES VALUES('GUERRERO','RS');
 
 SELECT * FROM jogadores;
 
-mysql> SELECT * FROM jogadores;
+SELECT * FROM jogadores;
 +-----------+----------+--------+
 | IDJOGADOR | NOME     | ESTADO |
 +-----------+----------+--------+
